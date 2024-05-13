@@ -64,6 +64,9 @@ async def format_output(stores: Iterable["VectorStore"], message: str, n_documen
             async for (distance, source, context) in store.get_nearest(message, n_nearest=n_documents)
         ]
     )
+    if not retrieved:
+        return message, message
+
     chosen = retrieved[:n_documents]
 
     total_context = ""
